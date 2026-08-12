@@ -203,7 +203,7 @@ Admin Dashboard
   ↓
 Check-in
   ↓
-Scan / Enter QR Code
+Enter / Scan QR Code
   ↓
 Validate Ticket
   ↓
