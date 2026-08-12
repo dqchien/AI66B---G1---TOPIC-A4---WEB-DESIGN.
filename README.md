@@ -6,7 +6,7 @@
 
 **CONCERTLY** là website bán vé concert trực tuyến, tập trung vào trải nghiệm tìm kiếm sự kiện, lựa chọn ghế, mua vé và quản lý vé sau khi đăng nhập.
 
-Website mô phỏng một hệ thống bán vé concert thực tế, trong đó người dùng có thể xem thông tin nghệ sĩ/sự kiện, lựa chọn vị trí trên sơ đồ chỗ ngồi, thanh toán online và nhận vé điện tử.
+Website được xây dựng dưới dạng student project, mô phỏng quy trình mua vé concert thực tế nhưng sử dụng mock payment, không thực hiện giao dịch tiền thật.
 
 ---
 
@@ -14,10 +14,14 @@ Website mô phỏng một hệ thống bán vé concert thực tế, trong đó 
 
 Vé concert là sản phẩm số có số lượng giới hạn (theo hạng ghế/khu vực), nhiều người có thể cùng đặt một vé tại một thời điểm. Hệ thống cần đảm bảo:
 
-- Không bán trùng một ghế cho hai người, đồng thời xử lý tranh chấp khi nhiều người cùng đặt một ghế.
-- Giữ chỗ tạm thời trong lúc người dùng thanh toán, tự hủy giữ chỗ nếu hết hạn.
-- Quản lý đơn hàng: trạng thái chờ thanh toán / đã thanh toán / đã hủy.
-- Người dùng có thể xem và quản lý các vé đã mua trong mục My Tickets sau khi đăng nhập.
+- Giúp người dùng dễ dàng tìm kiếm và khám phá các concert.
+- Cung cấp đầy đủ thông tin về concert, venue, nghệ sĩ và giá vé.
+- Cho phép người dùng lựa chọn ghế trực tiếp trên sơ đồ chỗ ngồi.
+- Tạm giữ ghế trong thời gian ngắn trong quá trình checkout.
+- Mô phỏng quy trình đặt vé và thanh toán.
+- Tạo vé điện tử có QR Code sau khi đặt vé thành công.
+- Cho phép người dùng xem lại vé và lịch sử đơn hàng.
+- Cung cấp giao diện quản trị để quản lý concert và đơn hàng.
 
 ---
 
@@ -25,68 +29,102 @@ Vé concert là sản phẩm số có số lượng giới hạn (theo hạng gh
 
 ### 3.1. Concert Discovery
 
-- Danh sách concert đang mở bán/sắp diễn ra.
-- Tìm kiếm và lọc theo nghệ sĩ, thời gian, giá vé.
-- Concert nổi bật và concert đang được quan tâm.
-- Countdown đến thời điểm mở bán hoặc ngày diễn ra.
+Người dùng có thể khám phá các concert trên website.
+
+- Danh sách concert sắp diễn ra và đang mở bán.
+- Tìm kiếm concert theo tên concert hoặc nghệ sĩ.
+  -Lọc theo ngày và khoảng giá.
+- Hiển thị concert nổi bật.
+- Hiển thị trạng thái mở bán / sắp mở bán.
+- Countdown đến thời điểm concert hoặc mở bán.
+
+Mục tiêu: Tạo trải nghiệm khám phá concert trực quan và dễ sử dụng.
 
 ### 3.2. Concert Detail
 
-Trang thông tin chi tiết của concert:
+Trang chi tiết cung cấp thông tin cần thiết trước khi người dùng quyết định mua vé.
 
+- Tên concert.
+- Poster / hình ảnh concert.
 - Nghệ sĩ / line-up.
-- Thời gian và địa điểm tổ chức.
-- Thông tin về venue.
-- Giá vé theo từng khu vực / hạng ghế.
-- Sơ đồ sân khấu và khu vực ghế.
-- Số lượng vé còn lại theo từng khu vực / hạng vé.
-- Điều khoản và quy định của concert.
+- Ngày và thời gian.
+- Địa điểm / venue.
+- Mô tả concert.
+- Các khu vực vé.
+- Giá vé theo từng khu vực.
+- Số lượng vé còn lại.
+- Điều khoản cơ bản.
 
 ### 3.3. Interactive Seat Selection
 
 Người dùng chọn ghế trực tiếp trên **sơ đồ chỗ ngồi**.
 
-- Hiển thị khu vực VIP / A / B / C.
-- Ghế đã bán không thể chọn.
-- Ghế đang được người khác giữ được đánh dấu riêng.
-- Hover vào ghế để xem thông tin và giá vé.
-- Tổng tiền cập nhật realtime khi người dùng chọn hoặc bỏ chọn ghế.
+- Hiển thị sơ đồ sân khấu và các khu vực ghế.
+- Phân biệt các khu vực như VIP / A / B / C.
+- Phân biệt trạng thái:
+  - Available
+  - Selected
+  - Held
+  - Sold
+- Không cho phép chọn ghế đã Sold.
+- Click vào ghế để chọn / bỏ chọn.
+- Hiển thị giá của ghế hoặc khu vực.
+- Tự động cập nhật số lượng ghế và tổng tiền.
 
-### 3.4. Ticket Hold & Seat Conflict Prevention
+### 3.4. Temporary Seat Reservation
 
-Sau khi chọn ghế:
+Sau khi người dùng chọn ghế:
 
-- Ghế được giữ tạm thời trong **5 phút**.
-- Countdown thời gian giữ vé.
-- Nếu thanh toán thành công → ghế được xác nhận và chuyển sang trạng thái Sold.
-- Nếu hết thời gian → ghế tự động được trả lại và chuyển về trạng thái Available.
-- Không cho phép hai người cùng xác nhận mua một ghế.
+- Ghế được chuyển sang trạng thái Held.
+- Hiển thị countdown 5 phút trong phiên checkout.
+- Người dùng có thời gian hoàn tất đơn hàng.
+- Nếu thanh toán thành công → ghế chuyển thành Sold.
+- Nếu hết thời gian → ghế được trả về Available.
+- Khi checkout, hệ thống kiểm tra lại trạng thái ghế trước khi xác nhận đơn hàng.
 
-### 3.5. Mock Payment
+### 3.5. Mock Checkout & Payment
 
-Mô phỏng quy trình thanh toán:
+Website mô phỏng quy trình đặt vé:
 
-`Seat Selection → Order Summary → Payment → Success`
+Seat Selection → Order Summary → Payment → Success
 
-Có thể mô phỏng các phương thức:
+Người dùng có thể:
 
-- Credit/Debit Card.
-- E-wallet.
-- Bank Transfer.
-
-Sau khi thanh toán thành công, đơn hàng được cập nhật sang trạng thái Paid và vé được xác nhận.
-
-Hệ thống chỉ mô phỏng quy trình thanh toán và không thực hiện giao dịch tiền thật.
-
-### 3.6. Digital Ticket & QR Code
+- Kiểm tra concert đã chọn.
+- Kiểm tra ghế đã chọn.
+- Xem số lượng vé.
+- Xem tổng tiền.
+- Chọn phương thức thanh toán giả lập:
+  - Credit/Debit Card
+  - E-wallet
+  - Bank Transfer
+- Xác nhận thanh toán.
 
 Sau khi thanh toán thành công:
 
-- Tạo vé điện tử.
-- Hiển thị thông tin concert, ghế và mã vé.
-- Sinh **QR Code duy nhất** cho mỗi vé.
-- Vé có trạng thái `Valid / Used`.
-- Cho phép người dùng xem vé điện tử trong mục My Tickets.
+- Order được cập nhật thành Paid.
+- Ghế được xác nhận là Sold.
+- Hệ thống tạo digital ticket.
+
+Hệ thống chỉ mô phỏng thanh toán và không thực hiện giao dịch tiền thật.
+
+### 3.6. Digital Ticket & QR Code
+
+Sau khi đặt vé thành công:
+
+- Tạo digital ticket.
+- Hiển thị:
+  - Concert
+  - Ngày / giờ
+  - Venue
+  - Khu vực
+  - Số ghế
+  - Ticket ID
+- Sinh QR Code cho mỗi vé.
+- Ticket có trạng thái:
+  - Valid
+  - Used
+- Người dùng có thể mở vé từ My Tickets.
 
 Admin có thể sử dụng QR Code để kiểm tra và xác thực vé tại sự kiện.
 
@@ -94,21 +132,49 @@ Admin có thể sử dụng QR Code để kiểm tra và xác thực vé tại s
 
 Sau khi đăng nhập, người dùng có thể:
 
-- Xem concert sắp tham dự.
-- Xem vé đã mua.
+- Xem các concert sắp tham dự.
+- Xem danh sách vé đã mua.
+- Mở digital ticket.
 - Xem QR Code.
+- Xem Ticket ID.
 - Xem lịch sử đơn hàng.
+- Xem trạng thái đơn hàng:
+  - Pending
+  - Paid
+  - Cancelled
 
 ### 3.8. Admin Dashboard
 
 Admin có thể:
 
-- Quản lý concert và thông tin nghệ sĩ.
-- Quản lý khu vực / ghế và số lượng vé.
-- Quản lý đơn hàng và trạng thái thanh toán.
-- Quản lý người dùng.
-- Theo dõi số lượng vé đã bán và doanh thu.
-- Xem thống kê bán vé theo concert và khu vực.
+**Concert Management**
+Xem danh sách concert.
+Thêm concert mới.
+Chỉnh sửa thông tin concert.
+Xóa concert.
+
+**Ticket & Seat Management**
+
+- Xem các khu vực ghế.
+- Cập nhật giá vé.
+- Xem số lượng vé còn lại.
+
+**Order Management**
+
+- Xem danh sách đơn hàng.
+- Xem thông tin khách hàng.
+- Xem trạng thái thanh toán.
+- Xem chi tiết đơn hàng.
+
+**Basic Dashboard**
+
+Hiển thị một số chỉ số cơ bản:
+
+- Total Concerts.
+- Tickets Sold.
+- Total Orders.
+- Total Revenue.
+- Upcoming Concerts.
 
 ---
 
@@ -117,16 +183,19 @@ Admin có thể:
 ### User
 
 1. **Home**
+   Mục đích: Giúp người dùng khám phá nhanh các concert nổi bật.
    - Concert nổi bật
    - Trending
    - Upcoming concerts
 
 2. **Explore Concerts**
+   Mục đích: Tìm kiếm và lọc concert.
    - Search
    - Filter
    - Danh sách concert
 
 3. **Concert Detail**
+   Mục đích: Cung cấp thông tin chi tiết trước khi mua vé.
    - Thông tin concert
    - Line-up
    - Venue
@@ -134,12 +203,14 @@ Admin có thể:
    - Seat map
 
 4. **Seat Selection**
+   Mục đích: Cho phép người dùng chọn ghế trực tiếp.
    - Interactive seat map
    - Chọn ghế
    - Countdown giữ vé
    - Tổng tiền
 
 5. **Checkout**
+   Mục đích: Xác nhận thông tin đơn hàng và mô phỏng thanh toán.
    - Thông tin vé
    - Ghế đã chọn
    - Tổng tiền
@@ -150,12 +221,14 @@ Admin có thể:
    - Link tới vé
 
 6. **My Tickets**
+   Mục đích: Quản lý các vé đã mua.
    - Danh sách vé
    - QR Code
    - Thông tin concert
    - Mã vé
 
 7. **Profile & Orders**
+   Mục đích: Quản lý tài khoản và lịch sử mua vé.
    - Thông tin cá nhân
    - Lịch sử đơn hàng
    - Trạng thái thanh toán
@@ -163,6 +236,7 @@ Admin có thể:
 ### Admin
 
 8. **Admin Dashboard**
+   Mục đích: Tổng quan và quản lý hệ thống.
    - Tổng quan doanh thu
    - Vé đã bán
    - Concert đang hoạt động
@@ -175,6 +249,8 @@ Admin có thể:
 
 ## 5. User Flow chính
 
+**5.1. Customer — Discover & Purchase Ticket**
+
 ```text
 Home
   ↓
@@ -182,21 +258,80 @@ Explore Concerts
   ↓
 Concert Detail
   ↓
-Seat Selection
+Select Seats
   ↓
-Hold Seat (5 minutes)
+Temporary Reservation (5 minutes)
   ↓
 Checkout
-  ├─ Order Summary
-  └─ Mock Payment
+  ↓
+Mock Payment
   ↓
 Payment Success
   ↓
 My Tickets
-  └─ Digital Ticket + QR Code
+  ↓
+Digital Ticket + QR Code
 ```
 
-### Admin Check-in Flow
+**5.2. Customer — View Existing Ticket**
+
+```text
+Login
+  ↓
+My Tickets
+  ↓
+Select Ticket
+  ↓
+Digital Ticket
+  ↓
+View QR Code
+```
+
+**5.3. Customer — View Order History**
+
+```text
+Profile
+  ↓
+Orders
+  ↓
+Order Detail
+  ↓
+Payment Status
+  ↓
+View Ticket
+```
+
+**5.4. Admin — Manage Concert**
+
+```text
+Admin Login
+  ↓
+Admin Dashboard
+  ↓
+Concert Management
+  ↓
+Create / Edit Concert
+  ↓
+Update Ticket Information
+  ↓
+Save
+```
+
+**5.5. Admin — Manage Orders**
+
+```text
+Admin Dashboard
+  ↓
+Order Management
+  ↓
+Order List
+  ↓
+Order Detail
+  ↓
+View Payment / Ticket Status
+```
+
+**5.6. Optional — QR Check-in**
 
 ```text
 Admin Dashboard
